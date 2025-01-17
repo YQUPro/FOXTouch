@@ -18,5 +18,6 @@ namespace FOXTouch_WPF.InterfacesDeclarations
 
         event EventHandler PositionChanged;
         event EventHandler StateChanged;
+
     }
 }
