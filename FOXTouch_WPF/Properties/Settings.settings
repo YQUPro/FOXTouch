@@ -1,7 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FOXTouch_WPF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SignificantDecimalPlace_Storage" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="SignificantDecimalPlace_Display" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="MeasurementValuesSeparator" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">;</Value>
+    </Setting>
+    <Setting Name="NameValueSeparator" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">=</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

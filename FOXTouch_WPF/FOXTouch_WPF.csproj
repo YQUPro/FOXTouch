@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +56,57 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Components\MeasurementValueListing.xaml.cs">
+      <DependentUpon>MeasurementValueListing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MeasurementValueTrend.xaml.cs">
+      <DependentUpon>MeasurementValueTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FractionConverter.cs" />
+    <Compile Include="GeometryClasses\Geometry_3DGenericCollection.cs" />
+    <Compile Include="GeometryClasses\Geometry_3DLine.cs" />
+    <Compile Include="GeometryClasses\Geometry_3DPoint.cs" />
+    <Compile Include="InterfacesDeclarations\AxisInterface.cs" />
+    <Compile Include="ViewModels\SimplifiedLightsViewModel.cs" />
+    <Compile Include="Windows\PartsResultsWindow.xaml.cs">
+      <DependentUpon>PartsResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProportionalConverter.cs" />
+    <Compile Include="Windows\SimplifiedEpiscopicLightWindow.xaml.cs">
+      <DependentUpon>SimplifiedEpiscopicLightWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SimplifiedLightsWindow.xaml.cs">
+      <DependentUpon>SimplifiedLightsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SplashScreenWindow.xaml.cs">
+      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MeasurementValueListingItemViewModel.cs" />
+    <Compile Include="ViewModels\MeasurementValueListingViewModel.cs" />
+    <Compile Include="ViewModels\MeasurementValueTrendModelView.cs" />
+    <Compile Include="ViewModels\PartsResultsViewModel.cs" />
+    <Compile Include="Views\PartsResultsView.xaml.cs">
+      <DependentUpon>PartsResultsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimplifiedEpiscopicLightView.xaml.cs">
+      <DependentUpon>SimplifiedEpiscopicLightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimplifiedLightsView.xaml.cs">
+      <DependentUpon>SimplifiedLightsView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Components\MeasurementValueListing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MeasurementValueTrend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindowWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +114,46 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Windows\MainWindowWindow.xaml.cs">
+      <DependentUpon>MainWindowWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\PartsResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SimplifiedEpiscopicLightWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SimplifiedLightsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SplashScreenWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PartsResultsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SimplifiedEpiscopicLightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SimplifiedLightsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,6 +180,187 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\#YQUComponents\TimeStampedData\TimeStampedData.csproj">
+      <Project>{dbf07145-2efe-474a-b83e-f7430592b7cf}</Project>
+      <Name>TimeStampedData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FOXTouchEnumerations\FOXTouchEnumerations.csproj">
+      <Project>{0e1c059b-5b12-41a0-bdb1-ab59fdb3e7c7}</Project>
+      <Name>FOXTouchEnumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GenericComponentsMVVM\GenericComponentsMVVM.csproj">
+      <Project>{6c0eca62-f67a-4e0b-b37d-6dfac5d52adc}</Project>
+      <Name>GenericComponentsMVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LightingBoardInterface\FOXTouchLightingBoards.csproj">
+      <Project>{27033431-0e63-441e-bbbf-b4eeda3afc77}</Project>
+      <Name>FOXTouchLightingBoards</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Purple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LEDIndicator_Yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_UndefinedOrDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Splash screen %28263%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_CameraContext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_FeaturesResults.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_BatchMeasurements.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_CADManagement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_Functions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_ProgramContent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_Reports.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_SimplifiedLights.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Display_Statistics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Application_ChangeLanguage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Application_Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Application_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Application_Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationMode_Administration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationMode_ManualMeasurement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationMode_ProgramExecution.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ApplicationMode_Programmer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_CameraAutofocus_Function.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_CameraLive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_ConfocalAutofocus_Function.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_OpenPicture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_SaveApplicationScreenshot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Action_SaveCameraPicture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SimplifiedLightsView_AuxiliaryLight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SimplifiedLightsView_Camera.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SimplifiedLightsView_Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SimplifiedLightsView_DiascopicLight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SimplifiedLightsView_EpiscopicLight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MainBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Background_01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MainBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type01.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_Type03.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PictureResultType_UndefinedOrDefault.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SectorialLight_FrontSector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SectorialLight_LeftSector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SectorialLight_RightSector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SectorialLight_BackSector.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

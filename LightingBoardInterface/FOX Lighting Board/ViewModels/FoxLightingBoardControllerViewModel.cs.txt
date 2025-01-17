@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using FOX_Lighting_board.Models;
+using FOXTouch_WPF.CustomizedData;
+using FOXTouch_WPF.ViewModels;
+using static FOXTouch_WPF.Enumerations.FunctionErrorCodeEnumerations;
+
+namespace FOX_Lighting_board.ViewModels
+{
+    public class FoxLightingBoardControllerViewModel : ViewModelBase
+    {
+        private FoxLightingBoardControllerModel _foxLightingBoardControllerModel;
+
+
+        public FoxLightingBoardControllerViewModel()
+        {
+            _foxLightingBoardControllerModel = new FoxLightingBoardControllerModel();
+            ConnectCommand = new RelayCommand(Connect);
+            UpdateLightsValuesCommand = new RelayCommand(Connect);
+        }
+
+        #region Définition des commandes
+        public ICommand ConnectCommand { get; }
+        public ICommand UpdateLightsValuesCommand { get; }
+        #endregion
+
+        #region  Définition des fonctions associées aux commandes
+        private void Connect()
+        {
+            _foxLightingBoardControllerModel.TCPConnect("192.168.2.1", 1234);
+        }
+
+        private EFunctionErrorCode UpdateLightsValues()
+        {
+            return EFunctionErrorCode.Success
+        }
+        #endregion
+    }
+}

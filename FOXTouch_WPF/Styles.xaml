@@ -1,0 +1,338 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FOXTouch_WPF"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <local:FractionConverter x:Key="FractionConverter"/>
+    <local:ProportionalConverter x:Key="ProportionalConverter"/>
+
+    <!-- Définition des couleurs des fenêtres -->
+    <SolidColorBrush x:Key="PrimaryBackgroundColourBrush" Color="Orange"/>
+    <SolidColorBrush x:Key="PrimaryForegroundColorBrush" Color="White"/>
+    <!-- Définition des couleurs de contraste, utilisées au sein des fenêtres -->
+    <SolidColorBrush x:Key="SecondaryBackgroundColourBrush" Color="Gray"/>
+    <SolidColorBrush x:Key="SecondaryForegroundColorBrush" Color="Black"/>
+    <!-- Définition des couleurs utilisées pour les boutons sur le tour de l'interface principale -->
+    <Color x:Key="UIButtonPrimaryBackgroundColor_NormalState">#808080</Color>
+    <Color x:Key="UIButtonPrimaryBackgroundColor_MouseOverState">#FFDE59</Color>
+    <Color x:Key="UIButtonPrimaryBackgroundColor_PressedState">#E54C00</Color>
+
+    <!-- Définition des tailles -->
+    <System:Double x:Key="ControlSize_Large">48</System:Double>
+    <System:Double x:Key="ControlSize_Medium">48</System:Double>
+    <System:Double x:Key="ControlSize_Small">32</System:Double>
+    <System:Double x:Key="ControlSize_Tiny">16</System:Double>
+
+    <System:String x:Key="GroupNameRadioButtons_ApplicationMode">RadioButtons_ApplicationMode</System:String>
+
+    <!-- Style pour les Fenêtres -->
+    <Style x:Key="WindowStyle" TargetType="Window" >
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="IsManipulationEnabled" Value="True"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <Style x:Key="BaseLargeButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource ControlSize_Large}"/>
+        <Setter Property="Width" Value="{StaticResource ControlSize_Large}"/>
+        <Setter Property="Margin" Value="5,5,5,5"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
+                        <!--Couleur de fond animée-->
+                        <Rectangle
+                            Name="backgroundRectangle"
+                            RadiusX="10"
+                            RadiusY="10"
+                            >
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!--Couleur de fond-->
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="10">
+                            <!--Contenu du bouton-->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                            <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.1"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                        <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_PressedState}" KeyTime="0:0:0.1"/>
+                                        <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.2"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BaseSmallButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource ControlSize_Small}"/>
+        <Setter Property="Width" Value="{StaticResource ControlSize_Small}"/>
+        <Setter Property="Margin" Value="2,2,2,2"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
+                        <!-- Couleur de fond animée -->
+                        <Rectangle Name="backgroundRectangle" RadiusX="5" RadiusY="5">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Couleur de fond -->
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+                            <!-- Contenu du bouton -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                            <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.1"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                        <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_PressedState}" KeyTime="0:0:0.1"/>
+                                        <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.2"/>
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BaseLargeCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Height" Value="{StaticResource ControlSize_Large}"/>
+        <Setter Property="Width" Value="{StaticResource ControlSize_Large}"/>
+        <Setter Property="Margin" Value="5,5,5,5"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
+                        <!-- Couleur de fond animée -->
+                        <Rectangle Name="backgroundRectangle" RadiusX="10" RadiusY="10">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Couleur de fond -->
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0" CornerRadius="10">
+                            <!-- Contenu de la CheckBox -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                            <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.1"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="backgroundRectangle" Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_PressedState}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BaseSmallRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Height" Value="{StaticResource ControlSize_Small}"/>
+        <Setter Property="Width" Value="{StaticResource ControlSize_Small}"/>
+        <Setter Property="Margin" Value="2,2,2,2"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
+                        <!-- Couleur de fond animée -->
+                        <Rectangle Name="backgroundRectangle" RadiusX="5" RadiusY="5">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Couleur de fond -->
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0" CornerRadius="10">
+                            <!-- Contenu du RadioButton -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="backgroundRectangle" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                                            <LinearColorKeyFrame Value="{StaticResource UIButtonPrimaryBackgroundColor_NormalState}" KeyTime="0:0:0.1"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="backgroundRectangle" Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource UIButtonPrimaryBackgroundColor_PressedState}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BigThumbStyle" TargetType="Thumb">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <!-- Cercle extérieur gris -->
+                        <Ellipse Width="30" Height="30" Fill="Gray"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <!-- Cercle intérieur blanc -->
+                        <Ellipse Width="10" Height="10" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRepeatButtonStyle" TargetType="RepeatButton">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Grid Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
+    </Style>
+
+    <Style x:Key="CustomSliderStyle" TargetType="Slider">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <!-- Triangle en fond -->
+                        <Path Data="M 0,0.5 L 1,1 L 1,0 Z" Stretch="Fill" Fill="{StaticResource SecondaryBackgroundColourBrush}" Opacity="0.8"/>
+
+                        <!-- Grid pour les barres verticales -->
+                        <Grid>
+                            <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.25}" 
+                              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.25}" 
+                              Y1="0" 
+                              Y2="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}" 
+                              Stroke="{StaticResource PrimaryForegroundColorBrush}" 
+                              StrokeThickness="2"/>
+                            <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}" 
+                              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.5}" 
+                              Y1="0" 
+                              Y2="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}" 
+                              Stroke="{StaticResource PrimaryForegroundColorBrush}" 
+                              StrokeThickness="2"/>
+                            <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.75}" 
+                              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource FractionConverter}, ConverterParameter=0.75}" 
+                              Y1="0" 
+                              Y2="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}" 
+                              Stroke="{StaticResource PrimaryForegroundColorBrush}" 
+                              StrokeThickness="2"/>
+                        </Grid>
+
+                        <Track Name="PART_Track">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                            </Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource SliderRepeatButtonStyle}" />
+                            </Track.IncreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource BigThumbStyle}" />
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

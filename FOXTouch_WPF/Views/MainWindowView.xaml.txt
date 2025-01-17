@@ -1,0 +1,338 @@
+﻿<UserControl x:Class="FOXTouch_WPF.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FOXTouch_WPF.Components"
+        mc:Ignorable="d"
+        Height="1080"
+        Width="1920"
+        >
+    <UserControl.Resources>
+        <!-- Styles applicables aux composants du bandeau de gauche-->
+        <Style x:Key="CameraContextVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCameraContextButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ReportsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsReportsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="BatchMeasurementsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsBatchMeasurementsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="StatisticsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsStatisticsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CADManagementVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCADManagementButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ProgramContentVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsProgramContentButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FeaturesResultsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsFeaturesResultsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SimplifiedLightsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSimplifiedLightsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FunctionsVisibilityStyle" TargetType="CheckBox" BasedOn="{StaticResource BaseCheckBoxStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsFunctionsButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Styles applicables aux composants du bandeau du bas-->
+
+
+        <!-- Styles applicables aux composants du bandeau de droite-->
+        <Style x:Key="CameraLiveVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCameraLiveButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="OpenPictureVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsOpenPictureButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SaveCameraPictureVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSaveCameraPictureButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SaveApplicationScreenshotVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSaveApplicationScreenshotButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CameraAutofocus_FunctionVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCameraAutofocus_FunctionButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ConfocalAutofocus_FunctionVisibilityStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsConfocalAutofocus_FunctionButtonVisible}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.Background>
+        <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/MainBackground.png" Stretch="Uniform"/>
+    </UserControl.Background>
+
+    <Grid>
+        <!-- Définir les colonnes et les lignes -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Ligne supérieure -->
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Colonne centrale qui s'étend -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Boutons liés au mode actuel de l'application -->
+            <RadioButton Grid.Column="0" Grid.Row="0" Style="{StaticResource BaseSmallRadioButtonStyle}">
+                <RadioButton.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/ApplicationMode_Administration.png" Stretch="Uniform"/>
+                </RadioButton.Background>
+            </RadioButton>
+            <RadioButton Grid.Column="1" Grid.Row="0" Style="{StaticResource BaseSmallRadioButtonStyle}">
+                <RadioButton.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/ApplicationMode_Programmer.png" Stretch="Uniform"/>
+                </RadioButton.Background>
+            </RadioButton>
+            <RadioButton Grid.Column="2" Grid.Row="0" Style="{StaticResource BaseSmallRadioButtonStyle}">
+                <RadioButton.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/ApplicationMode_ManualMeasurement.png" Stretch="Uniform"/>
+                </RadioButton.Background>
+            </RadioButton>
+            <RadioButton Grid.Column="3" Grid.Row="0" Style="{StaticResource BaseSmallRadioButtonStyle}">
+                <RadioButton.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/ApplicationMode_ProgramExecution.png" Stretch="Uniform"/>
+                </RadioButton.Background>
+            </RadioButton>
+
+            <!-- Bandeau central -->
+            <Border
+                Grid.Column="4"
+                Grid.Row="0" 
+                BorderThickness="5"
+                CornerRadius="3"
+                Margin="2,2,2,2"
+                BorderBrush="{StaticResource PrimaryBackgroundColourBrush}"
+                >
+                <TextBlock
+                    Text="FOXTouch - Projet en cours de développement" 
+                    TextAlignment="Center" 
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Background="{StaticResource PrimaryBackgroundColourBrush}"
+                    Foreground="{StaticResource PrimaryForegroundColorBrush}"
+                    HorizontalAlignment="Stretch"
+                    />
+            </Border>
+
+            <!-- Boutons liés aux actions de l'application -->
+            <Button Grid.Column="5" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_ChangeLanguage.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="6" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Login.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="7" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding MinimizeApplicationCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Minimize.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="8" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding ExitApplicationCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Exit.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+        <!-- StackPanel à gauche, centré en hauteur -->
+        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+            <CheckBox Style="{StaticResource BaseCheckBoxStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_CameraContext.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource ReportsVisibilityStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_Reports.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource BatchMeasurementsVisibilityStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_BatchMeasurements.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource StatisticsVisibilityStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_Statistics.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource CADManagementVisibilityStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_CADManagement.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource ProgramContentVisibilityStyle}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_ProgramContent.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource FeaturesResultsVisibilityStyle}" Command="{Binding TogglePartsResultsViewCommand}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_FeaturesResults.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource SimplifiedLightsVisibilityStyle}" Command="{Binding ToggleSimplifiedLightsViewCommand}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_SimplifiedLights.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+            <CheckBox Style="{StaticResource FunctionsVisibilityStyle}" Command="{Binding ToggleSimplifiedEpiscopicLightViewCommand}">
+                <CheckBox.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_Functions.png" Stretch="Uniform"/>
+                </CheckBox.Background>
+            </CheckBox>
+        </StackPanel>
+
+        <!-- StackPanel en bas, centré horizontalement -->
+        <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Margin="5,5,5,5" Height="64" Width="64">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Splash screen (263).png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Margin="5,5,5,5" Height="64" Width="64">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Splash screen (263).png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Margin="5,5,5,5" Height="64" Width="64">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Splash screen (263).png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
+        <!-- StackPanel à droite, centré en hauteur -->
+        <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+            <Button Style="{StaticResource CameraLiveVisibilityStyle}" Command="{Binding AddMeasurementCommand_DEV}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_CameraLive.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource OpenPictureVisibilityStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_OpenPicture.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource SaveCameraPictureVisibilityStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_SaveCameraPicture.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource SaveApplicationScreenshotVisibilityStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_SaveApplicationScreenshot.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource CameraAutofocus_FunctionVisibilityStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_CameraAutofocus_Function.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource ConfocalAutofocus_FunctionVisibilityStyle}">
+                <Button.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Action_ConfocalAutofocus_Function.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
+

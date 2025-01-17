@@ -1,0 +1,19 @@
+﻿<Window x:Class="FOXTouch_WPF.SimplifiedEpiscopicLightWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FOXTouch_WPF"
+        xmlns:views="clr-namespace:FOXTouch_WPF.Views"
+        mc:Ignorable="d"
+        Title="SimplifiedEpiscopicLightWindow"
+        Style="{StaticResource WindowStyle}"
+        MinHeight="94"
+        MinWidth="729"
+        Height="94"
+        Width="729"
+        >
+    <Grid Background="Transparent">
+        <views:SimplifiedEpiscopicLightView/>
+    </Grid>
+</Window>

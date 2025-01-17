@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FOXTouch_WPF.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +20,9 @@ namespace FOXTouch_WPF
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowWindow : Window
     {
-        public MainWindow()
+        public MainWindowWindow()
         {
             InitializeComponent();
         }
