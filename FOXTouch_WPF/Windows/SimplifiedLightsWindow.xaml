@@ -7,8 +7,6 @@
         xmlns:views="clr-namespace:FOXTouch_WPF.Views"
         mc:Ignorable="d"
         Title="SimplifiedLightsWindow"
-        Height="376"
-        Width="90"
         Style="{StaticResource WindowStyle}"
         >
     <Grid Background="Transparent">

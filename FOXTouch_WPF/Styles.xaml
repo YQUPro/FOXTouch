@@ -18,7 +18,7 @@
     <Color x:Key="UIButtonPrimaryBackgroundColor_PressedState">#E54C00</Color>
 
     <!-- Définition des tailles -->
-    <System:Double x:Key="ControlSize_Large">48</System:Double>
+    <System:Double x:Key="ControlSize_Large">64</System:Double>
     <System:Double x:Key="ControlSize_Medium">48</System:Double>
     <System:Double x:Key="ControlSize_Small">32</System:Double>
     <System:Double x:Key="ControlSize_Tiny">16</System:Double>
@@ -35,6 +35,7 @@
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="IsManipulationEnabled" Value="True"/>
         <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="SizeToContent" Value="WidthAndHeight"/>
     </Style>
 
     <Style x:Key="BaseLargeButtonStyle" TargetType="Button">
