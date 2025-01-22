@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using FOXTouch_WPF.ViewModels;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FOXTouch_WPF
@@ -11,6 +12,7 @@ namespace FOXTouch_WPF
         public PartsResultsWindow()
         {
             InitializeComponent();
+            DataContext = new PartsResultsViewModel();
             this.MouseLeftButtonDown += PartsResultsWindow_MouseLeftButtonDown;
         }
 

@@ -3,13 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FOXTouch_WPF.Components"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="1080"
         Width="1920"
         >
-    
     
     <UserControl.Resources>
         <!-- Styles applicables aux composants du bandeau de gauche-->
@@ -283,17 +280,17 @@
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_ProgramContent.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Style="{StaticResource FeaturesResultsVisibilityStyle}" Command="{Binding TogglePartsResultsViewCommand}">
+            <CheckBox Style="{StaticResource FeaturesResultsVisibilityStyle}" Command="{Binding Commands[TogglePartsResultsViewCommand]}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_FeaturesResults.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Style="{StaticResource SimplifiedLightsVisibilityStyle}" Command="{Binding ToggleSimplifiedLightsViewCommand}">
+            <CheckBox Name="ToggleSimplifiedLightsViewCheckbox" Style="{StaticResource SimplifiedLightsVisibilityStyle}" Command="{Binding Commands[ToggleSimplifiedLightsViewCommand]}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_SimplifiedLights.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Style="{StaticResource FunctionsVisibilityStyle}">
+            <CheckBox Style="{StaticResource FunctionsVisibilityStyle}" Command="{Binding Commands[ToggleSimplifiedEpiscopicLightViewCommand]}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_Functions.png" Stretch="Uniform"/>
                 </CheckBox.Background>

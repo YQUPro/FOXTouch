@@ -17,14 +17,15 @@ using System.Windows.Shapes;
 namespace FOXTouch_WPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour UserControl1.xaml
+    /// Logique d'interaction pour MainWindowView.xaml
     /// </summary>
     public partial class MainWindowView : UserControl
     {
         public MainWindowView()
         {
-            InitializeComponent();
             DataContext = new MainWindowViewModel();
+            InitializeComponent();
+            
         }
     }
 }

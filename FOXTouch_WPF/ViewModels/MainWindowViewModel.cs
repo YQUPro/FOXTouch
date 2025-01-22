@@ -1,4 +1,5 @@
-﻿using FOXTouchLightingBoards;
+﻿using FOXTouch_WPF.InterfacesDeclarations;
+using FOXTouchLightingBoards;
 using GenericComponentsMVVM;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,26 @@ namespace FOXTouch_WPF.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        private Dictionary<string, RelayCommand> _commands;
+        public Dictionary<string, RelayCommand> Commands
+        {
+            get => _commands;
+            set
+            {
+                if (_commands != value)
+                {
+                    _commands = value;
+                    OnPropertyChanged(nameof(Commands));
+                    Console.WriteLine("Commands property changed in MainWindowViewModel");
+                    foreach (var command in _commands)
+                    {
+                        Console.WriteLine($"Command: {command.Key}");
+                    }
+                }
+            }
+        }
+
         private Dictionary<string, Window> openWindows;
-        private readonly PartsResultsViewModel partsResultsViewModel;
-        private readonly SimplifiedLightsViewModel simplifiedLightsViewModel;
 
         private readonly FoxLightingBoardControllerViewModel foxLightingBoardControllerViewModel;
 
@@ -197,24 +215,47 @@ namespace FOXTouch_WPF.ViewModels
         public ICommand AddMeasurementCommand_DEV { get; }
         #endregion
 
+        // Initialisation des ViewModels
+        private readonly SimplifiedLightsViewModel simplifiedLightsViewModel;
+        private readonly SimplifiedEpiscopicLightViewModel simplifiedEpiscopicLightViewModel;
+
+
         public MainWindowViewModel()
         {
+            Commands = new Dictionary<string, RelayCommand>
+            {
+                #region Modes de fonctionnement (en haut à gauche)
+
+                #endregion
+                #region Actions de l'interface (en haut à droite)
+
+                #endregion
+                #region Affichage des fenêtres (à gauche)
+                { "ToggleSimplifiedLightsViewCommand", new RelayCommand(ToggleSimplifiedLightsView)},
+                { "ToggleSimplifiedEpiscopicLightViewCommand", new RelayCommand(ToggleSimplifiedEpiscopicLightView) },
+                { "TogglePartsResultsViewCommand", new RelayCommand(TogglePartsResultsView)}
+                #endregion
+                #region Commandes machines (à droite)
+
+                #endregion
+            };
+
             openWindows = new Dictionary<string, Window>(); // Initialisation du dictionnaire des fenêtres
 
-            #region  Associations de la définition des ICommand et du code source associée
-            TogglePartsResultsViewCommand = new RelayCommand(TogglePartsResultsView);
-            ToggleSimplifiedLightsViewCommand = new RelayCommand(ToggleSimplifiedLightsView);
-            ToggleSimplifiedEpiscopicLightViewCommand = new RelayCommand(ToggleSimplifiedEpiscopicLightView);
+            // Initialisation des ViewModels
+            simplifiedLightsViewModel = new SimplifiedLightsViewModel();
+            simplifiedEpiscopicLightViewModel = new SimplifiedEpiscopicLightViewModel();
 
+            #region  Associations de la définition des ICommand et du code source associée
             MinimizeApplicationCommand = new RelayCommand(MinimizeApplication);
             ExitApplicationCommand = new RelayCommand(ExitApplication);
 
             AddMeasurementCommand_DEV = new RelayCommand(AddMeasurement_DEV);
             #endregion
 
-            partsResultsViewModel = new PartsResultsViewModel();
-            simplifiedLightsViewModel = new SimplifiedLightsViewModel(this.ToggleSimplifiedEpiscopicLightViewCommand);
 
+
+            #region Test éclairage
             foxLightingBoardControllerViewModel = new FoxLightingBoardControllerViewModel();
             foxLightingBoardControllerViewModel.StartLightingBoardCommand.Execute(null);
 
@@ -238,21 +279,22 @@ namespace FOXTouch_WPF.ViewModels
                         )
                 );
             foxLightingBoardControllerViewModel.UpdateLightsValuesCommand.Execute(parameters);
+            #endregion
         }
 
         private void ToggleSimplifiedLightsView()
         {
-            ToggleWindow<SimplifiedLightsWindow>("SimplifiedLightsWindow", null);
+            ToggleWindow<SimplifiedLightsWindow>("SimplifiedLightsWindowKey",simplifiedLightsViewModel, relayCommands: Commands);
         }
 
         private void ToggleSimplifiedEpiscopicLightView()
         {
-            ToggleWindow<SimplifiedEpiscopicLightWindow>("SimplifiedEpiscopicLightWindow", null);
+            ToggleWindow<SimplifiedEpiscopicLightWindow>("SimplifiedEpiscopicLightWindowKey",simplifiedEpiscopicLightViewModel);
         }
 
         private void TogglePartsResultsView()
         {
-            ToggleWindow<PartsResultsWindow>("PartsResultsWindow", partsResultsViewModel);
+            ToggleWindow<PartsResultsWindow>("PartsResultsWindow");
         }
 
         private void MinimizeApplication()
@@ -270,10 +312,10 @@ namespace FOXTouch_WPF.ViewModels
 
         private void AddMeasurement_DEV()
         {
-            partsResultsViewModel.MeasurementValueListingViewModel.AddMeasurementValueCommand.Execute(GetConcatenatedValuesInput_DEV());
+            //partsResultsViewModel.MeasurementValueListingViewModel.AddMeasurementValueCommand.Execute(GetConcatenatedValuesInput_DEV());
         }
 
-        private void ToggleWindow<T>(string windowKey, object dataContext = null) where T : Window, new()
+        private void ToggleWindow<T>(string windowKey, object dataContext = null, bool forceDataContext = false, Dictionary<string, RelayCommand> relayCommands = null) where T : Window, new()
         {
             if (openWindows.ContainsKey(windowKey))
             {
@@ -284,7 +326,6 @@ namespace FOXTouch_WPF.ViewModels
                 }
                 else
                 {
-                    window.DataContext = dataContext;
                     window.Show();
                     window.Activate();
                 }
@@ -297,7 +338,22 @@ namespace FOXTouch_WPF.ViewModels
                 };
                 window.Closed += (s, args) => openWindows.Remove(windowKey);
                 openWindows[windowKey] = window;
-                window.DataContext = dataContext;
+
+                if (window.DataContext == null || forceDataContext)
+                {
+                    window.DataContext = dataContext;
+                }
+
+                if (window is SimplifiedLightsWindow simplifiedLightsWindow)
+                {
+                    simplifiedLightsWindow.Initialize(dataContext);
+                }
+
+                if (relayCommands != null && window is IRelayCommandReceiver commandReceiver)
+                {
+                    commandReceiver.SetRelayCommands(relayCommands);
+                }
+
                 window.Show();
             }
         }

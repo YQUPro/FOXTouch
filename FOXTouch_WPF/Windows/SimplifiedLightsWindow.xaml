@@ -9,7 +9,7 @@
         Title="SimplifiedLightsWindow"
         Style="{StaticResource WindowStyle}"
         >
-    <Grid Background="Transparent">
-        <views:SimplifiedLightsView/>
+    <Grid Background="Transparent"  x:Name="MainGrid">
+        <!-- Le contenu sera ajouté dynamiquement dans le code-behind -->
     </Grid>
 </Window>

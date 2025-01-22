@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
-             DataContext="{Binding SimplifiedLightsViewModel}"
              >
 
     <Border
@@ -20,21 +19,28 @@
             VerticalAlignment="Stretch"
             Background="{StaticResource PrimaryBackgroundColourBrush}"
             >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85*"/>
+                <RowDefinition Height="271*"/>
+            </Grid.RowDefinitions>
             <StackPanel
                 Orientation="Vertical"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
+                VerticalAlignment="Stretch" Grid.RowSpan="2"
                 >
                 <CheckBox 
+                    Name ="SimplifiedEpiscopicLightCheckbox"
                     Style="{StaticResource BaseLargeCheckBoxStyle}"
                     Margin="3,6,3,3"
-                    Command="{Binding ToggleSimplifiedEpiscopicLightViewCommand}"
+                    Command="{Binding Commands[ToggleSimplifiedEpiscopicLightViewCommand]}"
                     >
                     <CheckBox.Background>
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_EpiscopicLight.png" Stretch="Uniform"/>
                     </CheckBox.Background>
                 </CheckBox>
                 <CheckBox
+                    Command="{Binding ToggleSimplifiedEpiscopicLightViewCommand}"
+                    Name ="SimplifiedAuxiliaryLightCheckbox"
                 Style="{StaticResource BaseLargeCheckBoxStyle}"
                 Margin="3,3,3,3"
                 >
@@ -43,6 +49,7 @@
                     </CheckBox.Background>
                 </CheckBox>
                 <CheckBox
+                    Name ="SimplifiedDiascopicLightCheckbox"
                 Style="{StaticResource BaseLargeCheckBoxStyle}"
                 Margin="3,3,3,3"
                 >
@@ -51,6 +58,7 @@
                     </CheckBox.Background>
                 </CheckBox>
                 <CheckBox
+                    Name="CameraContextCheckbox"
                 Style="{StaticResource BaseLargeCheckBoxStyle}"
                 Margin="3,3,3,3"
                 >
@@ -58,14 +66,15 @@
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_Camera.png" Stretch="Uniform"/>
                     </CheckBox.Background>
                 </CheckBox>
-                <CheckBox
-                Style="{StaticResource BaseLargeCheckBoxStyle}"
+                <Button
+                    Name="ExitButton"
+                Style="{StaticResource BaseLargeButtonStyle}"
                 Margin="3,3,3,6"
                     >
-                    <CheckBox.Background>
+                    <Button.Background>
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_Cancel.png" Stretch="Uniform"/>
-                    </CheckBox.Background>
-                </CheckBox>
+                    </Button.Background>
+                </Button>
             </StackPanel>
         </Grid>
     </Border>

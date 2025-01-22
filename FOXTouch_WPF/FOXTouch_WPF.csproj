@@ -67,6 +67,8 @@
     <Compile Include="GeometryClasses\Geometry_3DLine.cs" />
     <Compile Include="GeometryClasses\Geometry_3DPoint.cs" />
     <Compile Include="InterfacesDeclarations\AxisInterface.cs" />
+    <Compile Include="InterfacesDeclarations\RelayCommandReceiverInterface.cs" />
+    <Compile Include="ViewModels\SimplifiedEpiscopicLightViewModel.cs" />
     <Compile Include="ViewModels\SimplifiedLightsViewModel.cs" />
     <Compile Include="Windows\PartsResultsWindow.xaml.cs">
       <DependentUpon>PartsResultsWindow.xaml</DependentUpon>

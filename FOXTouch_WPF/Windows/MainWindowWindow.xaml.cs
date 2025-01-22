@@ -24,7 +24,23 @@ namespace FOXTouch_WPF
     {
         public MainWindowWindow()
         {
+            this.DataContextChanged += FrameworkElement_DataContextChanged;
             InitializeComponent();
+            //DataContext = new MainWindowViewModel();
+        }
+
+        private void FrameworkElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is INotifyPropertyChanged newContext)
+            {
+                newContext.PropertyChanged += (s, args) =>
+                {
+                    if (args.PropertyName == "Commands")
+                    {
+                        // Logique pour vérifier les commandes
+                    }
+                };
+            }
         }
     }
 }

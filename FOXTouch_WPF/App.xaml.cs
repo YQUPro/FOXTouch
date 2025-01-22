@@ -1,15 +1,7 @@
-﻿using FOXTouch_WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace FOXTouch_WPF
 {
@@ -20,6 +12,9 @@ namespace FOXTouch_WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Ajout des gestionnaires d'événements pour les erreurs de liaison et les exceptions non gérées
+            this.DispatcherUnhandledException += OnDispatcherUnhandledException;
+
             // Initialisation du splash screen
             SplashScreenWindow splashScreen = new SplashScreenWindow();
             splashScreen.Show();
@@ -35,6 +30,26 @@ namespace FOXTouch_WPF
 
             // Ferme le splash screen
             splashScreen.Close();
+        }
+
+        private void FrameworkElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is INotifyPropertyChanged newContext)
+            {
+                newContext.PropertyChanged += (s, args) =>
+                {
+                    if (args.PropertyName == "Commands")
+                    {
+                        // Logique pour vérifier les commandes
+                    }
+                };
+            }
+        }
+
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Erreur non gérée", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
         }
     }
 }
