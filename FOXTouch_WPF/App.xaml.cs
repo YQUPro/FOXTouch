@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using FOXTouch_WPF.ViewModels;
+using FOXTouch_WPF.Windows;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -24,26 +25,14 @@ namespace FOXTouch_WPF
 
             // Initialisation de la fenêtre principale
             MainWindowWindow mainWindow = new MainWindowWindow();
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            mainWindow.InitializeDataContext(mainWindowViewModel);
             mainWindow.Show();
 
             base.OnStartup(e);
 
             // Ferme le splash screen
             splashScreen.Close();
-        }
-
-        private void FrameworkElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is INotifyPropertyChanged newContext)
-            {
-                newContext.PropertyChanged += (s, args) =>
-                {
-                    if (args.PropertyName == "Commands")
-                    {
-                        // Logique pour vérifier les commandes
-                    }
-                };
-            }
         }
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

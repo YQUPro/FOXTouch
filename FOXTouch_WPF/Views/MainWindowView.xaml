@@ -236,12 +236,12 @@
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Login.png" Stretch="Uniform"/>
                 </Button.Background>
             </Button>
-            <Button Grid.Column="7" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding MinimizeApplicationCommand}">
+            <Button Grid.Column="7" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding Commands[MinimizeApplicationCommand]}">
                 <Button.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Minimize.png" Stretch="Uniform"/>
                 </Button.Background>
             </Button>
-            <Button Grid.Column="8" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding ExitApplicationCommand}">
+            <Button Grid.Column="8" Grid.Row="0" Style="{StaticResource BaseSmallButtonStyle}" Command="{Binding Commands[ExitApplicationCommand]}">
                 <Button.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Application_Exit.png" Stretch="Uniform"/>
                 </Button.Background>
@@ -280,17 +280,24 @@
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_ProgramContent.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Style="{StaticResource FeaturesResultsVisibilityStyle}" Command="{Binding Commands[TogglePartsResultsViewCommand]}">
+            <CheckBox
+                Style="{StaticResource FeaturesResultsVisibilityStyle}"
+                 IsChecked="{Binding IsPartsResultsWindowVisible, Mode=TwoWay}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_FeaturesResults.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Name="ToggleSimplifiedLightsViewCheckbox" Style="{StaticResource SimplifiedLightsVisibilityStyle}" Command="{Binding Commands[ToggleSimplifiedLightsViewCommand]}">
+            <CheckBox
+                Name="ToggleSimplifiedLightsViewCheckbox"
+                Style="{StaticResource SimplifiedLightsVisibilityStyle}"
+                IsChecked="{Binding IsSimplifiedLightsWindowVisible, Mode=TwoWay}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_SimplifiedLights.png" Stretch="Uniform"/>
                 </CheckBox.Background>
             </CheckBox>
-            <CheckBox Style="{StaticResource FunctionsVisibilityStyle}" Command="{Binding Commands[ToggleSimplifiedEpiscopicLightViewCommand]}">
+            <CheckBox
+                Style="{StaticResource FunctionsVisibilityStyle}"
+                IsChecked="{Binding IsSimplifiedEpiscopicLightWindowVisible, Mode=TwoWay}">
                 <CheckBox.Background>
                     <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/Display_Functions.png" Stretch="Uniform"/>
                 </CheckBox.Background>

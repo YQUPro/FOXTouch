@@ -21,12 +21,12 @@ namespace FOXTouch_WPF.Windows
     /// <summary>
     /// Logique d'interaction pour SimplifiedEpiscopicLightWindow.xaml
     /// </summary>
-    public partial class SimplifiedEpiscopicLightWindow : Window, ILateInitializableDataContextWindow, IRelayCommandReceiver
+    public partial class SimplifiedAuxiliaryLightWindow : Window, ILateInitializableDataContextWindow, IRelayCommandReceiver
     {
-        public SimplifiedEpiscopicLightWindow()
+        public SimplifiedAuxiliaryLightWindow()
         {
             InitializeComponent();
-            this.MouseLeftButtonDown += SimplifiedEpiscopicLightWindow_MouseLeftButtonDown;
+            this.MouseLeftButtonDown += SimplifiedAuxiliaryLightWindow_MouseLeftButtonDown;
         }
 
         void IRelayCommandReceiver.SetRelayCommands(Dictionary<string, RelayCommand> relayCommands)
@@ -42,11 +42,11 @@ namespace FOXTouch_WPF.Windows
             DataContext = dataContext;
 
             // Assigner le DataContext à SimplifiedLightsView et l'ajouter au Grid
-            SimplifiedEpiscopicLightView simplifiedEpiscopicLightView = new SimplifiedEpiscopicLightView(dataContext);
-            MainGrid.Children.Add(simplifiedEpiscopicLightView);
+            SimplifiedAuxiliaryLightView simplifiedAuxiliaryLightView = new SimplifiedAuxiliaryLightView(dataContext);
+            MainGrid.Children.Add(simplifiedAuxiliaryLightView);
         }
 
-        private void SimplifiedEpiscopicLightWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SimplifiedAuxiliaryLightWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }

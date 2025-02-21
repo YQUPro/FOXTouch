@@ -19,19 +19,19 @@ using GenericComponentsMVVM;
 namespace FOXTouch_WPF.Windows
 {
     /// <summary>
-    /// Logique d'interaction pour SimplifiedEpiscopicLightWindow.xaml
+    /// Logique d'interaction pour SimplifiedDiascopicLightWindow.xaml
     /// </summary>
-    public partial class SimplifiedEpiscopicLightWindow : Window, ILateInitializableDataContextWindow, IRelayCommandReceiver
+    public partial class SimplifiedDiascopicLightWindow : Window, IRelayCommandReceiver, ILateInitializableDataContextWindow
     {
-        public SimplifiedEpiscopicLightWindow()
+        public SimplifiedDiascopicLightWindow()
         {
             InitializeComponent();
-            this.MouseLeftButtonDown += SimplifiedEpiscopicLightWindow_MouseLeftButtonDown;
+            this.MouseLeftButtonDown += SimplifiedDiascopicLightWindow_MouseLeftButtonDown;
         }
 
         void IRelayCommandReceiver.SetRelayCommands(Dictionary<string, RelayCommand> relayCommands)
         {
-            if (DataContext is SimplifiedEpiscopicLightViewModel viewModel)
+            if (DataContext is SimplifiedDiascopicLightViewModel viewModel)
             {
                 viewModel.Commands = relayCommands;
             }
@@ -42,11 +42,11 @@ namespace FOXTouch_WPF.Windows
             DataContext = dataContext;
 
             // Assigner le DataContext à SimplifiedLightsView et l'ajouter au Grid
-            SimplifiedEpiscopicLightView simplifiedEpiscopicLightView = new SimplifiedEpiscopicLightView(dataContext);
-            MainGrid.Children.Add(simplifiedEpiscopicLightView);
+            SimplifiedDiascopicLightView simplifiedDiascopicLightView = new SimplifiedDiascopicLightView(dataContext);
+            MainGrid.Children.Add(simplifiedDiascopicLightView);
         }
 
-        private void SimplifiedEpiscopicLightWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void SimplifiedDiascopicLightWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }

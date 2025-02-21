@@ -1,5 +1,5 @@
 ﻿<UserControl 
-    x:Class="FOXTouch_WPF.Views.SimplifiedEpiscopicLightView"
+    x:Class="FOXTouch_WPF.Views.SimplifiedDiascopicLightView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -29,10 +29,6 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <!-- Image dans la case (0,0) -->
             <Image
@@ -40,7 +36,7 @@
                 Height="64"
                 Width="64"
                 Margin="0,0,10,0"
-                Source="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_EpiscopicLight.png" Stretch="Uniform"
+                Source="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_DiascopicLight.png" Stretch="Uniform"
                 />
             <!-- Slider dans la case (1,0) -->
             <StackPanel
@@ -50,7 +46,7 @@
                 Background="Transparent"
                 >
                 <Slider 
-                    Name="SimplifiedEpiscopicLightSliderValue"
+                    Name="SimplifiedDiascopicLightSliderValue"
                     Minimum="0"
                     Maximum="100" 
                     TickFrequency="25"
@@ -66,7 +62,7 @@
             <TextBlock
                 Grid.Column="2"
                 Margin="20,0,20,0"
-                Text="{Binding ElementName=SimplifiedEpiscopicLightSliderValue, Path=Value, Converter={StaticResource SliderValueToStringConverter}, Mode=TwoWay}"
+                Text="{Binding ElementName=SimplifiedDiascopicLightSliderValue, Path=Value, Converter={StaticResource SliderValueToStringConverter}, Mode=TwoWay}"
                 TextAlignment="Center" 
                 FontSize="32"
                 FontWeight="Bold"
@@ -75,42 +71,6 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                     />
-            <!-- CheckBox 'Secteur Arrière' dans la case (3,0) -->
-            <CheckBox 
-                Grid.Column="3"
-                Style="{StaticResource BaseLargeCheckBoxStyle}"
-                >
-                <CheckBox.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SectorialLight_BackSector.png" Stretch="Uniform"/>
-                </CheckBox.Background>
-            </CheckBox>
-            <!-- CheckBox 'Secteur Droite' dans la case (4,0) -->
-            <CheckBox 
-                Grid.Column="4"
-                Style="{StaticResource BaseLargeCheckBoxStyle}"
-                >
-                <CheckBox.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SectorialLight_RightSector.png" Stretch="Uniform"/>
-                </CheckBox.Background>
-            </CheckBox>
-            <!-- CheckBox 'Secteur Avant' dans la case (5,0) -->
-            <CheckBox 
-                Grid.Column="5"
-                Style="{StaticResource BaseLargeCheckBoxStyle}"
-                >
-                <CheckBox.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SectorialLight_FrontSector.png" Stretch="Uniform"/>
-                </CheckBox.Background>
-            </CheckBox>
-            <!-- CheckBox 'Secteur Gauche' dans la case (6,0) -->
-            <CheckBox 
-                Grid.Column="6"
-                Style="{StaticResource BaseLargeCheckBoxStyle}"
-                >
-                <CheckBox.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SectorialLight_LeftSector.png" Stretch="Uniform"/>
-                </CheckBox.Background>
-            </CheckBox>
         </Grid>
     </Border>
 </UserControl>

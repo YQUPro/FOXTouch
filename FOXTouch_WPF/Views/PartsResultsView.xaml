@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FOXTouch_WPF.Views"
              xmlns:components="clr-namespace:FOXTouch_WPF.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="600"
+             d:DesignHeight="400"
              d:DesignWidth="250"
              Background="Transparent" 
              HorizontalAlignment="Stretch"
@@ -47,13 +47,12 @@
                 Background="{StaticResource PrimaryBackgroundColourBrush}"
                   >
                 <Border
-                    SnapsToDevicePixels="True"
                     BorderThickness="10" 
                     CornerRadius="10" 
                     BorderBrush="{StaticResource SecondaryBackgroundColourBrush}">
                     <Grid 
                         Background="{StaticResource SecondaryBackgroundColourBrush}"
-                        SnapsToDevicePixels="True">
+                        >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>

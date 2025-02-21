@@ -12,23 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MessengerService;
-using static MessengerService.MessengerServiceMessagesDeclarations;
 
 namespace FOXTouch_WPF.Views
 {
     /// <summary>
-    /// Logique d'interaction pour SimplifiedEpiscopicLightView.xaml
+    /// Logique d'interaction pour SimplifiedDiascopicLightView.xaml
     /// </summary>
-    public partial class SimplifiedEpiscopicLightView : UserControl
+    public partial class SimplifiedAuxiliaryLightView : UserControl
     {
-        public SimplifiedEpiscopicLightView(object dataContext)
+        public SimplifiedAuxiliaryLightView(object dataContext)
         {
             InitializeComponent();
 
             DataContext = dataContext;
-
-            Messenger.Instance.Subscribe<WindowClosedMessage>(OnMessage_WindowClosed);
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -36,11 +32,6 @@ namespace FOXTouch_WPF.Views
             // Gérer le changement de valeur du slider
             double value = e.NewValue;
             // Par exemple, mettre à jour une propriété liée ou effectuer une action spécifique
-        }
-
-        private void OnMessage_WindowClosed(WindowClosedMessage message)
-        {
-            //if (message.From == )
         }
     }
 }

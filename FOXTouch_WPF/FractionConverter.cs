@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows.Data;
 
-
 namespace FOXTouch_WPF
 {
     public class FractionConverter : IValueConverter

@@ -12,6 +12,7 @@
 >
     <Grid>
         <ListView
+            BorderThickness="0"
             ItemsSource="{Binding MeasurementValueListingItemViewModels}"
             Background="Transparent"
             >

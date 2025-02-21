@@ -12,9 +12,12 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         WindowStyle="None"
+        AllowsTransparency="True"
         ResizeMode="NoResize"
-        >
-    <Grid>
-        <views:MainWindowView/>
+        SnapsToDevicePixels="True"
+        Background="DarkGray"
+    >
+    <Grid Background="Transparent"  x:Name="MainGrid">
+        <!-- Le contenu sera ajouté dynamiquement dans le code-behind -->
     </Grid>
 </Window>

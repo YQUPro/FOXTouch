@@ -4,7 +4,7 @@ using static MessengerService.MessengerServiceMessagesDeclarations;
 
 namespace FOXTouch_WPF.ViewModels
 {
-    public class SimplifiedEpiscopicLightViewModel : ViewModelBase
+    public class SimplifiedDiascopicLightViewModel : ViewModelBase
     {
         private double _sliderValue;
         public double SliderValue
@@ -21,9 +21,8 @@ namespace FOXTouch_WPF.ViewModels
             }
         }
 
-        public SimplifiedEpiscopicLightViewModel()
+        public SimplifiedDiascopicLightViewModel()
         {
         }
     }
-
 }

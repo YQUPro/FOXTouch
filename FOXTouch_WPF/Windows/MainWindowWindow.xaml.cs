@@ -1,46 +1,26 @@
-﻿using FOXTouch_WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FOXTouch_WPF.InterfacesDeclarations;
+using FOXTouch_WPF.Views;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FOXTouch_WPF
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
-    public partial class MainWindowWindow : Window
+    public partial class MainWindowWindow : Window, ILateInitializableDataContextWindow
     {
         public MainWindowWindow()
         {
-            this.DataContextChanged += FrameworkElement_DataContextChanged;
             InitializeComponent();
-            //DataContext = new MainWindowViewModel();
         }
 
-        private void FrameworkElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public void InitializeDataContext(object dataContext)
         {
-            if (e.NewValue is INotifyPropertyChanged newContext)
-            {
-                newContext.PropertyChanged += (s, args) =>
-                {
-                    if (args.PropertyName == "Commands")
-                    {
-                        // Logique pour vérifier les commandes
-                    }
-                };
-            }
+            DataContext = dataContext;
+
+            // Assigner le DataContext à SimplifiedLightsView et l'ajouter au Grid
+            MainWindowView mainWindowViewView = new MainWindowView(dataContext);
+            MainGrid.Children.Add(mainWindowViewView);
         }
     }
 }

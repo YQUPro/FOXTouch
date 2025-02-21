@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:FOXTouch_WPF.Views"
              mc:Ignorable="d" 
              >
 
@@ -25,37 +25,34 @@
                 Orientation="Vertical"
                 >
                 <RadioButton 
-                    Name ="SimplifiedEpiscopicLightRadioButton"
+                    Name ="SimplifiedEpiscopicLightCheckbox"
                     Style="{DynamicResource BaseLargeRadioButtonStyle}"
-                    Checked="SimplifiedLightsRadioButton_CheckedChanged"
-                    Unchecked="SimplifiedLightsRadioButton_CheckedChanged" 
+                    Command="{Binding Commands[ToggleSimplifiedEpiscopicLightViewCommand]}"
                     >
                     <RadioButton.Background>
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_EpiscopicLight.png" Stretch="Uniform"/>
                     </RadioButton.Background>
                 </RadioButton>
                 <RadioButton
-                    Name ="SimplifiedAuxiliaryLightRadioButton"
+                    Name ="SimplifiedAuxiliaryLightCheckbox"
                     Style="{DynamicResource BaseLargeRadioButtonStyle}"
-                    Checked="SimplifiedLightsRadioButton_CheckedChanged"
-                    Unchecked="SimplifiedLightsRadioButton_CheckedChanged" 
+                    Command="{Binding Commands[ToggleSimplifiedAuxiliaryLightViewCommand]}"
                     >
                     <RadioButton.Background>
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_AuxiliaryLight.png" Stretch="Uniform"/>
                     </RadioButton.Background>
                 </RadioButton>
                 <RadioButton
-                    Name ="SimplifiedDiascopicLightRadioButton"
+                    Name ="SimplifiedDiascopicLightCheckbox"
                     Style="{DynamicResource BaseLargeRadioButtonStyle}"
-                    Checked="SimplifiedLightsRadioButton_CheckedChanged"
-                    Unchecked="SimplifiedLightsRadioButton_CheckedChanged" 
+                    Command="{Binding Commands[ToggleSimplifiedDiascopicLightViewCommand]}"
                     >
                     <RadioButton.Background>
                         <ImageBrush ImageSource="pack://application:,,,/FOXTouch_WPF;component/Resources/SimplifiedLightsView_DiascopicLight.png" Stretch="Uniform"/>
                     </RadioButton.Background>
                 </RadioButton>
                 <RadioButton
-                    Name="CameraContextRadioButton"
+                    Name="CameraContextCheckbox"
                     Style="{DynamicResource BaseLargeRadioButtonStyle}"
                     >
                     <RadioButton.Background>

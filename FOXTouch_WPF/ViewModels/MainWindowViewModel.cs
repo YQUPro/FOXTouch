@@ -1,38 +1,43 @@
 ﻿using FOXTouch_WPF.InterfacesDeclarations;
+using FOXTouch_WPF.Windows;
 using FOXTouchLightingBoards;
 using GenericComponentsMVVM;
+using MessengerService;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using static MessengerService.MessengerServiceMessagesDeclarations;
 
 namespace FOXTouch_WPF.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private Dictionary<string, RelayCommand> _commands;
-        public Dictionary<string, RelayCommand> Commands
-        {
-            get => _commands;
-            set
-            {
-                if (_commands != value)
-                {
-                    _commands = value;
-                    OnPropertyChanged(nameof(Commands));
-                    Console.WriteLine("Commands property changed in MainWindowViewModel");
-                    foreach (var command in _commands)
-                    {
-                        Console.WriteLine($"Command: {command.Key}");
-                    }
-                }
-            }
-        }
+        private const string SimplifiedLightsWindowKey = "SimplifiedLightsWindowKey";
+        private const string SimplifiedEpiscopicLightWindowKey = "SimplifiedEpiscopicLightWindowKey";
+        private const string SimplifiedDiascopicLightWindowKey = "SimplifiedDiascopicLightWindowKey";
+        private const string SimplifiedAuxiliaryLightWindowKey = "SimplifiedAuxiliaryLightWindowKey";
+        private const string PartsResultsWindowKey = "PartsResultsWindowKey";
+
 
         private Dictionary<string, Window> openWindows;
+        private readonly Dictionary<string, bool> windowVisibility = new Dictionary<string, bool>
+        {
+            { SimplifiedLightsWindowKey, false },
+            { PartsResultsWindowKey, false },
+            { SimplifiedEpiscopicLightWindowKey, false },
+            { SimplifiedDiascopicLightWindowKey, false },
+            { SimplifiedAuxiliaryLightWindowKey, false }
+        };
 
+        // Initialisation des ViewModels
         private readonly FoxLightingBoardControllerViewModel foxLightingBoardControllerViewModel;
+        private readonly SimplifiedLightsViewModel simplifiedLightsViewModel;
+        private readonly SimplifiedEpiscopicLightViewModel simplifiedEpiscopicLightViewModel;
+        private readonly SimplifiedDiascopicLightViewModel simplifiedDiascopicLightViewModel;
+        private readonly SimplifiedAuxiliaryLightViewModel simplifiedAuxiliaryLightViewModel;
+        private readonly PartsResultsViewModel partsResultsViewModel;
 
         #region Définition des commutateurs permettant l'affichage des boutons du bandeau de gauche
         private bool _isCameraContextButtonVisible = true;
@@ -204,56 +209,145 @@ namespace FOXTouch_WPF.ViewModels
         #endregion
 
         #region Définition des ICommand disponibles
-        public ICommand TogglePartsResultsViewCommand { get; }
-        public ICommand ToggleSimplifiedLightsViewCommand { get; }
-        public ICommand ToggleSimplifiedEpiscopicLightViewCommand { get; }
-        public ICommand ToggleSimplifiedDiascopicLightViewCommand { get; }
-        public ICommand ToggleSimplifiedAuxialiaryLightViewCommand { get; }
-        public ICommand ExitApplicationCommand { get; }
-        public ICommand MinimizeApplicationCommand { get; }
 
         public ICommand AddMeasurementCommand_DEV { get; }
         #endregion
 
-        // Initialisation des ViewModels
-        private readonly SimplifiedLightsViewModel simplifiedLightsViewModel;
-        private readonly SimplifiedEpiscopicLightViewModel simplifiedEpiscopicLightViewModel;
+        #region Booléens de gestion de la visibilité des fenêtres
+        public bool IsSimplifiedLightsWindowVisible
+        {
+            get => windowVisibility[SimplifiedLightsWindowKey];
+            set
+            {
+                if (windowVisibility[SimplifiedLightsWindowKey] != value)
+                {
+                    windowVisibility[SimplifiedLightsWindowKey] = value;
+                    OnPropertyChanged(nameof(IsSimplifiedLightsWindowVisible));
+                    if (value)
+                        ShowWindow<SimplifiedLightsWindow>(SimplifiedLightsWindowKey, dataContext: simplifiedLightsViewModel);
+                    else
+                        CloseWindow(SimplifiedLightsWindowKey);
+                }
+            }
+        }
 
+        public bool IsPartsResultsWindowVisible
+        {
+            get => windowVisibility[PartsResultsWindowKey];
+            set
+            {
+                if (windowVisibility[PartsResultsWindowKey] != value)
+                {
+                    windowVisibility[PartsResultsWindowKey] = value;
+                    OnPropertyChanged(nameof(IsPartsResultsWindowVisible));
+                    if (value)
+                        ShowWindow<PartsResultsWindow>(PartsResultsWindowKey, dataContext: partsResultsViewModel);
+                    else
+                        CloseWindow(PartsResultsWindowKey);
+                }
+            }
+        }
+
+        public bool IsSimplifiedEpiscopicLightWindowVisible
+        {
+            get => windowVisibility[SimplifiedEpiscopicLightWindowKey];
+            set
+            {
+                if (windowVisibility[SimplifiedEpiscopicLightWindowKey] != value)
+                {
+                    windowVisibility[SimplifiedEpiscopicLightWindowKey] = value;
+                    OnPropertyChanged(nameof(IsSimplifiedEpiscopicLightWindowVisible));
+                    if (value)
+                        ShowWindow<SimplifiedEpiscopicLightWindow>(SimplifiedEpiscopicLightWindowKey, dataContext: simplifiedEpiscopicLightViewModel);
+                    else
+                        CloseWindow(SimplifiedEpiscopicLightWindowKey);
+                }
+            }
+        }
+
+        public bool IsSimplifiedDiascopicLightWindowVisible
+        {
+            get => windowVisibility[SimplifiedDiascopicLightWindowKey];
+            set
+            {
+                if (windowVisibility[SimplifiedDiascopicLightWindowKey] != value)
+                {
+                    windowVisibility[SimplifiedDiascopicLightWindowKey] = value;
+                    OnPropertyChanged(nameof(IsSimplifiedDiascopicLightWindowVisible));
+                    if (value)
+                        ShowWindow<SimplifiedDiascopicLightWindow>(SimplifiedDiascopicLightWindowKey, dataContext: simplifiedDiascopicLightViewModel);
+                    else
+                        CloseWindow(SimplifiedDiascopicLightWindowKey);
+                }
+            }
+        }
+
+        public bool IsSimplifiedAuxiliaryLightWindowVisible
+        {
+            get => windowVisibility[SimplifiedAuxiliaryLightWindowKey];
+            set
+            {
+                if (windowVisibility[SimplifiedAuxiliaryLightWindowKey] != value)
+                {
+                    windowVisibility[SimplifiedAuxiliaryLightWindowKey] = value;
+                    OnPropertyChanged(nameof(SimplifiedAuxiliaryLightWindowKey));
+                    if (value)
+                        ShowWindow<SimplifiedAuxiliaryLightWindow>(SimplifiedAuxiliaryLightWindowKey, dataContext: simplifiedAuxiliaryLightViewModel);
+                    else
+                        CloseWindow(SimplifiedAuxiliaryLightWindowKey);
+                }
+            }
+        }
+        #endregion
 
         public MainWindowViewModel()
         {
+
+            openWindows = new Dictionary<string, Window>(); // Initialisation du dictionnaire des fenêtres
+
+            #region Initialisation des ViewModels et des COmmands associées
             Commands = new Dictionary<string, RelayCommand>
             {
                 #region Modes de fonctionnement (en haut à gauche)
 
                 #endregion
                 #region Actions de l'interface (en haut à droite)
-
+                { "MinimizeApplicationCommand", new RelayCommand(MinimizeApplication)},
+                { "ExitApplicationCommand", new RelayCommand(ExitApplication)},
                 #endregion
                 #region Affichage des fenêtres (à gauche)
                 { "ToggleSimplifiedLightsViewCommand", new RelayCommand(ToggleSimplifiedLightsView)},
-                { "ToggleSimplifiedEpiscopicLightViewCommand", new RelayCommand(ToggleSimplifiedEpiscopicLightView) },
-                { "TogglePartsResultsViewCommand", new RelayCommand(TogglePartsResultsView)}
+                { "TogglePartsResultsViewCommand", new RelayCommand(TogglePartsResultsView)},
+                { "ToggleSimplifiedEpiscopicLightViewCommand", new RelayCommand(ToggleSimplifiedEpiscopicLightView)},
                 #endregion
                 #region Commandes machines (à droite)
 
                 #endregion
             };
 
-            openWindows = new Dictionary<string, Window>(); // Initialisation du dictionnaire des fenêtres
+            simplifiedLightsViewModel = new SimplifiedLightsViewModel()
+            {
+                Commands = new Dictionary<string, RelayCommand>
+                {
+                    { "ToggleSimplifiedLightsViewCommand", new RelayCommand(ToggleSimplifiedLightsView)},
+                    { "ToggleSimplifiedEpiscopicLightViewCommand", new RelayCommand(ToggleSimplifiedEpiscopicLightView)},
+                    { "ToggleSimplifiedDiascopicLightViewCommand", new RelayCommand(ToggleSimplifiedDiascopicLightView)},
+                    { "ToggleSimplifiedAuxiliaryLightViewCommand", new RelayCommand(ToggleSimplifiedAuxiliaryLightView)},
+                }
+            };
 
-            // Initialisation des ViewModels
-            simplifiedLightsViewModel = new SimplifiedLightsViewModel();
             simplifiedEpiscopicLightViewModel = new SimplifiedEpiscopicLightViewModel();
+            simplifiedDiascopicLightViewModel = new SimplifiedDiascopicLightViewModel();
+            simplifiedAuxiliaryLightViewModel = new SimplifiedAuxiliaryLightViewModel();
 
-            #region  Associations de la définition des ICommand et du code source associée
-            MinimizeApplicationCommand = new RelayCommand(MinimizeApplication);
-            ExitApplicationCommand = new RelayCommand(ExitApplication);
-
-            AddMeasurementCommand_DEV = new RelayCommand(AddMeasurement_DEV);
+            partsResultsViewModel = new PartsResultsViewModel();
             #endregion
 
 
+            #region  Associations de la définition des ICommand et du code source associée
+
+            AddMeasurementCommand_DEV = new RelayCommand(AddMeasurement_DEV);
+            #endregion
 
             #region Test éclairage
             foxLightingBoardControllerViewModel = new FoxLightingBoardControllerViewModel();
@@ -280,21 +374,14 @@ namespace FOXTouch_WPF.ViewModels
                 );
             foxLightingBoardControllerViewModel.UpdateLightsValuesCommand.Execute(parameters);
             #endregion
+
+            Messenger.Instance.Subscribe<SliderValueChangedMessage>(OnMessage_SliderValueChanged);
         }
 
-        private void ToggleSimplifiedLightsView()
+        private void OnMessage_SliderValueChanged(SliderValueChangedMessage message)
         {
-            ToggleWindow<SimplifiedLightsWindow>("SimplifiedLightsWindowKey",simplifiedLightsViewModel, relayCommands: Commands);
-        }
-
-        private void ToggleSimplifiedEpiscopicLightView()
-        {
-            ToggleWindow<SimplifiedEpiscopicLightWindow>("SimplifiedEpiscopicLightWindowKey",simplifiedEpiscopicLightViewModel);
-        }
-
-        private void TogglePartsResultsView()
-        {
-            ToggleWindow<PartsResultsWindow>("PartsResultsWindow");
+            // Logique pour gérer la modification de la valeur du slider
+            Console.WriteLine($"Nouvelle valeur du slider en provenance de {message.From.ToString()} : {message.NewValue}");
         }
 
         private void MinimizeApplication()
@@ -312,52 +399,147 @@ namespace FOXTouch_WPF.ViewModels
 
         private void AddMeasurement_DEV()
         {
-            //partsResultsViewModel.MeasurementValueListingViewModel.AddMeasurementValueCommand.Execute(GetConcatenatedValuesInput_DEV());
+            partsResultsViewModel.MeasurementValueListingViewModel.AddMeasurementValueCommand.Execute(GetConcatenatedValuesInput_DEV());
         }
 
-        private void ToggleWindow<T>(string windowKey, object dataContext = null, bool forceDataContext = false, Dictionary<string, RelayCommand> relayCommands = null) where T : Window, new()
+        #region Fonctions relatives à la gestion de l'affichage des différentes fenêtres 
+        private void ShowWindow<T>(string windowKey, object dataContext = null, bool forceDataContext = false, Point? position = null) where T : Window, new()
         {
             if (openWindows.ContainsKey(windowKey))
             {
                 var window = openWindows[windowKey];
-                if (window.IsVisible)
-                {
-                    window.Hide();
-                }
-                else
-                {
-                    window.Show();
-                    window.Activate();
-                }
+                window.Show();
+                window.Activate();
             }
             else
             {
-                T window = new T
+                T window = new T();
+                if (Application.Current.MainWindow != null && window != Application.Current.MainWindow)
                 {
-                    Owner = Application.Current.MainWindow // Définir la fenêtre principale comme propriétaire
+                    window.Owner = Application.Current.MainWindow;
+                }
+                window.Closed += (s, args) =>
+                {
+                    openWindows.Remove(windowKey);
                 };
-                window.Closed += (s, args) => openWindows.Remove(windowKey);
                 openWindows[windowKey] = window;
-
-                if (window.DataContext == null || forceDataContext)
+                if (window is ILateInitializableDataContextWindow lateInitializableDataContextWindow)
                 {
-                    window.DataContext = dataContext;
+                    lateInitializableDataContextWindow.InitializeDataContext(dataContext);
                 }
-
-                if (window is SimplifiedLightsWindow simplifiedLightsWindow)
+                else
                 {
-                    simplifiedLightsWindow.Initialize(dataContext);
+                    if (window.DataContext == null || forceDataContext)
+                    {
+                        window.DataContext = dataContext;
+                    }
                 }
-
-                if (relayCommands != null && window is IRelayCommandReceiver commandReceiver)
+                if (position.HasValue)
                 {
-                    commandReceiver.SetRelayCommands(relayCommands);
+                    window.Left = position.Value.X;
+                    window.Top = position.Value.Y;
                 }
-
                 window.Show();
             }
         }
 
+        private void ToggleWindowVisibility(string windowKey, Point? position = null)
+        {
+            switch (windowKey)
+            {
+                case SimplifiedLightsWindowKey:
+                    IsSimplifiedLightsWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case PartsResultsWindowKey:
+                    IsPartsResultsWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedEpiscopicLightWindowKey:
+                    IsSimplifiedEpiscopicLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedDiascopicLightWindowKey:
+                    IsSimplifiedDiascopicLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedAuxiliaryLightWindowKey:
+                    IsSimplifiedAuxiliaryLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+            }
+        }
+
+        private void CloseWindow(string windowKey)
+        {
+            if (openWindows.ContainsKey(windowKey))
+            {
+                openWindows[windowKey].Close();
+            }
+        }
+
+        private void ToggleWindowVisibility(string windowKey)
+        {
+            switch (windowKey)
+            {
+                case SimplifiedLightsWindowKey:
+                    IsSimplifiedLightsWindowVisible = !windowVisibility[windowKey];
+                    if (!IsSimplifiedLightsWindowVisible)
+                    {
+                        Messenger.Instance.Send(new WindowClosedMessage(windowKey));
+                    }
+                    break;
+                case PartsResultsWindowKey:
+                    IsPartsResultsWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedEpiscopicLightWindowKey:
+                    IsSimplifiedEpiscopicLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedDiascopicLightWindowKey:
+                    IsSimplifiedDiascopicLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+                case SimplifiedAuxiliaryLightWindowKey:
+                    IsSimplifiedAuxiliaryLightWindowVisible = !windowVisibility[windowKey];
+                    break;
+                    // Ajoutez des cas pour d'autres fenêtres ici
+            }
+        }
+
+        private void ToggleSimplifiedLightsView()
+        {
+            ToggleWindowVisibility(SimplifiedLightsWindowKey);
+        }
+
+        private void TogglePartsResultsView()
+        {
+            ToggleWindowVisibility(PartsResultsWindowKey);
+        }
+
+        public void ToggleSimplifiedEpiscopicLightView(Point position)
+        {
+            if (IsSimplifiedEpiscopicLightWindowVisible)
+            {
+                CloseWindow(SimplifiedEpiscopicLightWindowKey);
+            }
+            else
+            {
+                ShowWindow<SimplifiedEpiscopicLightWindow>(SimplifiedEpiscopicLightWindowKey, dataContext: simplifiedEpiscopicLightViewModel, position: position);
+            }
+            IsSimplifiedEpiscopicLightWindowVisible = !IsSimplifiedEpiscopicLightWindowVisible;
+        }
+
+        private void ToggleSimplifiedEpiscopicLightView()
+        {
+            ToggleWindowVisibility(SimplifiedEpiscopicLightWindowKey);
+        }
+
+        private void ToggleSimplifiedDiascopicLightView()
+        {
+            ToggleWindowVisibility(SimplifiedDiascopicLightWindowKey);
+        }
+
+        private void ToggleSimplifiedAuxiliaryLightView()
+        {
+            ToggleWindowVisibility(SimplifiedAuxiliaryLightWindowKey);
+        }
+        #endregion
+
+        #region Fonctions de Debug en DEV
         private string GetConcatenatedValuesInput_DEV()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -375,5 +557,6 @@ namespace FOXTouch_WPF.ViewModels
 
             return stringBuilder.ToString();
         }
+        #endregion
     }
 }

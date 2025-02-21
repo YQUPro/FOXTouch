@@ -21,11 +21,10 @@ namespace FOXTouch_WPF.Views
     /// </summary>
     public partial class PartsResultsView : UserControl
     {
-        public PartsResultsView()
+        public PartsResultsView(object dataContext)
         {
             InitializeComponent();
-
-            DataContext = new PartsResultsViewModel();
+            DataContext = dataContext;
         }
     }
 }
